@@ -1,12 +1,25 @@
 const numX = document.getElementById("numX")
 const numY = document.getElementById("numY")
 
-numX.innerText = 1
-numY.innerText = 2
+numX.innerText = 10
 
-// innerText // innerHTML
+function calculateFibo(x) {
+    const numberToCalculate = parseInt(x)
+    if (numberToCalculate === 0) return 0
+    if (numberToCalculate === 1) return 1
+    let previous1 = 0;
+    let previous2 = 1;
+    let result;
+
+    for (let i = 2; i <= numberToCalculate; i++) {
+        result = previous1 + previous2
+        previous1 = previous2;
+        previous2 = result
+    }
 
 
+    return result
+}
 
 
-// 19:08!!!
+numY.innerText = calculateFibo(numX.innerText)
