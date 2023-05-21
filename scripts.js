@@ -1,7 +1,5 @@
-const numX = document.getElementById("numX")
 const numY = document.getElementById("numY")
-
-numX.innerText = 10
+const inputNumber = document.getElementById("inputNumber")
 
 function calculateFibo(x) {
     const numberToCalculate = parseInt(x)
@@ -22,4 +20,4 @@ function calculateFibo(x) {
 }
 
 
-numY.innerText = calculateFibo(numX.innerText)
+numY.innerText = calculateFibo(inputNumber.value)
