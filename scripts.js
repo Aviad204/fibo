@@ -1,9 +1,9 @@
-const numX = document.getElementById("numX")
 const numY = document.getElementById("numY")
-
-numX.innerText = 10
+const inputNumber = document.getElementById("inputNumber")
+const calculateFiboBtn = document.getElementById("calculateFiboBtn")
 
 function calculateFibo(x) {
+    console.log("i am running")
     const numberToCalculate = parseInt(x)
     if (numberToCalculate === 0) return 0
     if (numberToCalculate === 1) return 1
@@ -22,4 +22,7 @@ function calculateFibo(x) {
 }
 
 
-numY.innerText = calculateFibo(numX.innerText)
+calculateFiboBtn.addEventListener("click", () => {
+    numY.innerText = calculateFibo(inputNumber.value)
+})
+
