@@ -1,12 +1,12 @@
 const numY = document.getElementById("numY")
 const inputNumber = document.getElementById("inputNumber")
 const calculateFiboBtn = document.getElementById("calculateFiboBtn")
-const errorDiv = document.getElementById("errorDiv")
+const errorDisplayer = document.getElementById("errorDisplayer")
+const loadingSpinner = document.getElementById("loadingSpinner")
 
 const serverURL = "http://localhost:5050/fibonacci/"
 
 async function getFiboFromServer() {
-
     try {
         const response = await fetch(serverURL + inputNumber.value)
         if (response.ok) {
@@ -14,7 +14,7 @@ async function getFiboFromServer() {
             return data.result
         }
     } catch (err) {
-        errorDiv.innerText = "We have an error " + err
+        errorDisplayer.innerText = "We have an error " + err
     }
 }
 
@@ -38,10 +38,47 @@ function calculateFibo(x) {
     return result
 }
 
+function inputValidation() {
+    if (inputNumber.value > 50 || inputNumber.value < 0) {
+        return { isValid: false, message: "Input value must be 0-50" }
+    } else if (isNaN(inputNumber.value)) {
+        return { isValid: false, message: "The input must be a number" }
+    } else {
+        return { isValid: true, message: "Valid" }
+    }
+}
+
 async function handleClickBtn(event) {
     event.preventDefault()
-    const calculatedNumber = await getFiboFromServer()
-    numY.innerText = calculatedNumber
+    resetState()
+    const validation = inputValidation()
+    if (validation.isValid) {
+        enableSpinner()
+        const calculatedNumber = await getFiboFromServer()
+        numY.innerText = calculatedNumber
+        disableSpinner()
+    } else {
+        displayError(validation.message)
+        return
+    }
+}
+
+function resetState() {
+    errorDisplayer.innerHTML = ""
+    errorDisplayer.classList.add("d-none")
+    numY.innerHTML = ""
+}
+
+function displayError(errorMessage) {
+    errorDisplayer.innerText = errorMessage
+    errorDisplayer.classList.remove("d-none")
+}
+
+function enableSpinner() {
+    loadingSpinner.classList.remove("d-none")
+}
+function disableSpinner() {
+    loadingSpinner.classList.add("d-none")
 }
 
 
