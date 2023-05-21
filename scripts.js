@@ -4,8 +4,6 @@ const numY = document.getElementById("numY")
 numX.innerText = 10
 
 function calculateFibo(x) {
-    console.log(x)
-
     const numberToCalculate = parseInt(x)
     if (numberToCalculate === 0) return 0
     if (numberToCalculate === 1) return 1
