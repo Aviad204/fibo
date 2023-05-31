@@ -18,8 +18,6 @@ async function getFiboFromServer() {
     }
 }
 
-// fetch(url).then(res => res.json()).then(data => console.log(data))
-
 function calculateFibo(x) {
     const numberToCalculate = parseInt(x)
     if (numberToCalculate === 0) return 0
