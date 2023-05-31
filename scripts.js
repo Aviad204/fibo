@@ -6,17 +6,7 @@ const loadingSpinner = document.getElementById("loadingSpinner")
 
 const serverURL = "http://localhost:5050/fibonacci/"
 
-async function getFiboFromServer() {
-    try {
-        const response = await fetch(serverURL + inputNumber.value)
-        if (response.ok) {
-            const data = await response.json()
-            return data.result
-        }
-    } catch (err) {
-        errorDisplayer.innerText = "We have an error " + err
-    }
-}
+
 
 function calculateFibo(x) {
     const numberToCalculate = parseInt(x)
@@ -46,6 +36,24 @@ function inputValidation() {
     }
 }
 
+async function getFiboFromServer() {
+    try {
+        const response = await fetch(serverURL + inputNumber.value)
+        if (response.ok) {
+            const data = await response.json()
+            return data.result
+        } else {
+            numY.classList.add("text-danger")
+            const errorMessage = `Server Error: ${await response.text()}`
+            console.log(errorMessage)
+            numY.innerText = errorMessage;
+            return null
+        }
+    } catch (err) {
+        errorDisplayer.innerText = "We have an error " + err
+    }
+}
+
 async function handleClickBtn(event) {
     event.preventDefault()
     resetState()
@@ -53,11 +61,11 @@ async function handleClickBtn(event) {
     if (validation.isValid) {
         enableSpinner()
         const calculatedNumber = await getFiboFromServer()
-        numY.innerText = calculatedNumber
+        // a number // null
+        if (calculatedNumber) numY.innerText = calculatedNumber
         disableSpinner()
     } else {
         displayError(validation.message)
-        return
     }
 }
 
@@ -65,6 +73,8 @@ function resetState() {
     errorDisplayer.innerHTML = ""
     errorDisplayer.classList.add("d-none")
     numY.innerHTML = ""
+    numY.classList.remove("text-danger")
+
 }
 
 function displayError(errorMessage) {
@@ -82,3 +92,27 @@ function disableSpinner() {
 
 calculateFiboBtn.addEventListener("click", handleClickBtn)
 
+
+
+
+
+
+
+
+
+
+const condition = ""
+
+if (condition) {
+    console.log("true")
+} else {
+    console.log("false")
+}
+
+
+
+// True
+// Strings, numbers. array(also empty), objects(also empty)
+
+// False
+// null, undefined, empty string
